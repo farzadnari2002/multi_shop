@@ -12,8 +12,8 @@ class UserManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
-        firstname = firstname,
-        lastname = lastname,
+        firstname=firstname,
+        lastname=lastname,
         )
 
         user.set_password(password)
@@ -22,14 +22,13 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, firstname, lastname, password=None):
         """
-        Creates and saves a superuser with the given email, date of
-        birth and password.
+        Creates and saves a User with the given email, first name, lastname and password.
         """
         user = self.create_user(
             email,
             password=password,
-            firstname = firstname,
-            lastname = lastname,
+            firstname=firstname,
+            lastname=lastname,
             )
         user.is_admin = True
         user.save(using=self._db)
@@ -44,8 +43,8 @@ class User(AbstractBaseUser):
     )
     firstname = models.CharField(max_length=50, verbose_name= 'نام')
     lastname = models.CharField(max_length=50, verbose_name= 'نام خانوادگی')
-    is_active = models.BooleanField(default=True)
-    is_admin = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True, verbose_name= 'فعال')
+    is_admin = models.BooleanField(default=False, verbose_name= 'ادمین')
 
     objects = UserManager()
 
