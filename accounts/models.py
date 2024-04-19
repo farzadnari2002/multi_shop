@@ -20,7 +20,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, firstname, lastname, password=None):
+    def create_superuser(self, email, firstname=None, lastname=None, password=None):
         """
         Creates and saves a User with the given email, first name, lastname and password.
         """
@@ -41,8 +41,8 @@ class User(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
-    firstname = models.CharField(max_length=50, verbose_name= 'نام')
-    lastname = models.CharField(max_length=50, verbose_name= 'نام خانوادگی')
+    firstname = models.CharField(max_length=50, verbose_name= 'نام', null=True, blank=True)
+    lastname = models.CharField(max_length=50, verbose_name= 'نام خانوادگی', null=True, blank=True)
     is_active = models.BooleanField(default=True, verbose_name= 'فعال')
     is_admin = models.BooleanField(default=False, verbose_name= 'ادمین')
 
