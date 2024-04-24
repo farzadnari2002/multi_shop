@@ -51,6 +51,10 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
+    class Meta:
+        verbose_name = 'کاربر'
+        verbose_name_plural = 'کاربرها'
+
     def __str__(self):
         return self.email
 
