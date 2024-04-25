@@ -12,7 +12,7 @@ class UserManager(BaseUserManager):
 
         user = self.model(
             phone=phone,
-            pasword=password,
+            password=password,
         )
         
         user.set_password(password)
@@ -56,7 +56,7 @@ class User(AbstractBaseUser):
         verbose_name_plural = 'کاربرها'
 
     def __str__(self):
-        return self.email
+        return self.phone
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
