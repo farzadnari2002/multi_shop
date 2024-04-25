@@ -5,13 +5,14 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 class UserManager(BaseUserManager):
     def create_user(self, phone, password=None):
         """
-        Creates and saves a User with the given phone.
+        Creates and saves a User with the given phone and password.
         """
         if not phone:
             raise ValueError("Users must have an email address")
 
         user = self.model(
-            phone=phone
+            phone=phone,
+            pasword=password,
         )
         
         user.set_password(password)
@@ -20,13 +21,13 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, phone, password=None):
         """
-        Creates and saves a User with the given phone.
+        Creates and saves a User with the given phone and password.
         """
         user = self.create_user(
-            phone
+            phone,
+            password=password,
             )
         
-        user.is_superuser = True
         user.is_admin = True
         user.save(using=self._db)
         return user
