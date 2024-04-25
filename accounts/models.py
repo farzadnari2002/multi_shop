@@ -3,52 +3,51 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, firstname, lastname, password=None):
+    def create_user(self, phone, password=None):
         """
-        Creates and saves a User with the given email, first name, lastname and password.
+        Creates and saves a User with the given phone.
         """
-        if not email:
+        if not phone:
             raise ValueError("Users must have an email address")
 
         user = self.model(
-            email=self.normalize_email(email),
-        firstname=firstname,
-        lastname=lastname,
+            phone=phone
         )
-
+        
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, firstname=None, lastname=None, password=None):
+    def create_superuser(self, phone, password=None):
         """
-        Creates and saves a User with the given email, first name, lastname and password.
+        Creates and saves a User with the given phone.
         """
         user = self.create_user(
-            email,
-            password=password,
-            firstname=firstname,
-            lastname=lastname,
+            phone
             )
+        
+        user.is_superuser = True
         user.is_admin = True
         user.save(using=self._db)
         return user
 
 
 class User(AbstractBaseUser):
+    phone = models.CharField(max_length=11, unique=True, verbose_name= 'شماره همراه')
     email = models.EmailField(
         verbose_name="آدرس ایمیل",
         max_length=255,
         unique=True,
+        null=True,
+        blank=True,
     )
-    firstname = models.CharField(max_length=50, verbose_name= 'نام', null=True, blank=True)
-    lastname = models.CharField(max_length=50, verbose_name= 'نام خانوادگی', null=True, blank=True)
+    fullname = models.CharField(max_length=50, verbose_name= 'نام و نام خانوادگی', null=True, blank=True)
     is_active = models.BooleanField(default=True, verbose_name= 'فعال')
     is_admin = models.BooleanField(default=False, verbose_name= 'ادمین')
 
     objects = UserManager()
 
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = "phone"
     REQUIRED_FIELDS = []
 
     class Meta:
