@@ -12,7 +12,7 @@ class Login(View):
     def post(self, request):
         form = LoginForm(request.POST)
         if form.is_valid():
-            cd = form.cleaned_data()
+            cd = form.cleaned_data
             user = authenticate(username=cd['phone'], password=cd['password'])
             if user is not None:
                 login(request, user)
@@ -21,5 +21,5 @@ class Login(View):
                 form.add_error('phone', 'invalid user data')
         else:
             form.add_error('phone', 'invalid data')
-            
+
         return render(request, 'accounts/login.html', context={'form':form})
