@@ -1,5 +1,9 @@
 from django.shortcuts import render
+from django.views import View
+from . import forms
 
 
-def login(request):
-    return render(request, 'accounts/login.html')
+class Login(View):
+    def get(self, request):
+        form = forms.LoginForm()
+        return render(request, 'accounts/login.html', context={'form':form})
