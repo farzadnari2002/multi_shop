@@ -26,6 +26,9 @@
                 <form name="sentMessage" id="contactForm" novalidate="novalidate" method="post">
                     {% csrf_token %}
                     <div class="control-group">
+                    {% for error in form.phone.errors %}
+                        <p class="alert alert-danger">{{ error }}</p>
+                    {% endfor %}
                             {{ form.phone }}
                         <p class="help-block text-danger"></p>
                     </div>
