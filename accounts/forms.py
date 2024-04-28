@@ -3,7 +3,7 @@ from django.core.validators import MaxLengthValidator
 
 
 class LoginForm(forms.Form):
-    phone = forms.CharField(widget=forms.TextInput(validators=[MaxLengthValidator(11)], attrs={
+    phone = forms.CharField(validators=[MaxLengthValidator(11)], widget=forms.TextInput(attrs={
          "type":"tel",
          "class":"form-control",
          "id":"phone",
