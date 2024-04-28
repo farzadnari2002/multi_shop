@@ -23,7 +23,7 @@
         <div class=" mb-5 contact-us" style="">
             <div class="contact-form bg-light p-30">
                 <div id="success"></div>
-                <form name="sentMessage" id="contactForm" novalidate="novalidate" method="post">
+                <form name="login" id="LoginForm" novalidate="novalidate" method="post">
                     {% csrf_token %}
                     <div class="control-group">
                     {% for error in form.phone.errors %}
