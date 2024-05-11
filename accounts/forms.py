@@ -24,5 +24,5 @@ class LoginForm(forms.Form):
     def clean_phone(self):
         phone = self.cleaned_data.get('phone')
         if len(phone) != 11:
-            raise ValidationError('%(value)s تلفن وارد شده معتبر نیست', code='invalid_phone',params={'value':phone})
+            raise ValidationError('تلفن وارد شده معتبر نیست', code='invalid_phone')
 
