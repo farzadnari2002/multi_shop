@@ -1,9 +1,10 @@
 from django import forms
 from django.core.validators import MaxLengthValidator
+from django.core.exceptions import ValidationError
 
 
 class LoginForm(forms.Form):
-    phone = forms.CharField(validators=[MaxLengthValidator(11)], widget=forms.TextInput(attrs={
+    phone = forms.CharField(widget=forms.TextInput(attrs={
          "type":"tel",
          "class":"form-control",
          "id":"phone",
@@ -19,4 +20,9 @@ class LoginForm(forms.Form):
          "required":"required",
          "data-validation-required-message":"Please enter your password",
     }))
+
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+        if len(phone) != 11:
+            raise ValidationError('%(value)s تلفن وارد شده معتبر نیست', code='invalid_phone',params={'value':phone})
 

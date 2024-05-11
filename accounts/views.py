@@ -19,7 +19,5 @@ class Login(View):
                 return redirect('/')
             else:
                 form.add_error('phone', 'invalid user data')
-        else:
-            form.add_error('phone', 'invalid data')
 
         return render(request, 'accounts/login.html', context={'form':form})
