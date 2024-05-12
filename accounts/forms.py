@@ -25,4 +25,21 @@ class LoginForm(forms.Form):
         phone = self.cleaned_data.get('phone')
         if len(phone) != 11:
             raise ValidationError('تلفن وارد شده معتبر نیست', code='invalid_phone')
+        
+
+class RegisterForm(forms.Form):
+    phone = forms.CharField(widget=forms.TextInput(attrs={
+         "type":"tel",
+         "class":"form-control",
+         "id":"phone",
+         "placeholder":"Your Phone",
+         "required":"required",
+         "data-validation-required-message":"Please enter your phone number", }))
+    
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+        if len(phone) != 11:
+            raise ValidationError('تلفن وارد شده معتبر نیست', code='invalid_phone')
+        
+    
 

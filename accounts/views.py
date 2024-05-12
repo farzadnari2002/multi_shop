@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm
 from django.contrib.auth import authenticate, login
 
 
@@ -21,3 +21,10 @@ class Login(View):
                 form.add_error('phone', 'invalid user data')
 
         return render(request, 'accounts/login.html', context={'form':form})
+    
+
+class Register(View):
+    def get(self, request):
+        form = RegisterForm()
+        return render(request, 'accounts/register.html', context={'form':form})
+    
