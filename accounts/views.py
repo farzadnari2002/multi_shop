@@ -30,7 +30,7 @@ class Login(View):
         return render(request, 'accounts/login.html', context={'form':form})
     
 
-class Register(View):
+class RegisterLoginOtp(View):
     def get(self, request):
         form = RegisterForm()
         return render(request, 'accounts/register.html', context={'form':form})
@@ -63,8 +63,9 @@ class CheckOtp(View):
             cd = form.cleaned_data
             if Otp.objects.filter(token=token, code=cd['code']).exists():
                 otp = Otp.objects.get(token=token)
-                user = User.objects.create_user(phone=otp.phone)
+                user, is_created  = User.objects.get_or_create(phone=otp.phone)
                 login(request, user)
+                otp.delete()
                 return redirect('/')
         else:
             form.add_error('phone', 'invalid user data')
