@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 import ghasedakpack
 from random import randint
 from .models import User, Otp
-from django.utils.crypto import get_random_string
+from uuid import uuid4
 
 
 SMS = ghasedakpack.Ghasedak("56c1f7b271564b46a485083e3afbbccfcf64c5931a189c01866244eeddc6b98c")
@@ -41,7 +41,7 @@ class Register(View):
             cd = form.cleaned_data
             randcode = randint(10000,99999)
             SMS.verification({'receptor': cd['phone'], 'type': 'type1', 'template': 'randcode', 'param1': randcode})
-            token = get_random_string(length=100)
+            token = str(uuid4())
             Otp.objects.create(token=token, phone=cd['phone'], code=randcode)
             print(randcode)
             return redirect(reverse('accounts:check_otp') + f'?token={token}')
