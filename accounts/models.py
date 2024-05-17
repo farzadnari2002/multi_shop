@@ -75,7 +75,7 @@ class User(AbstractBaseUser):
         return self.is_admin
     
 
-class Otp(models.model):
+class Otp(models.Model):
     phone = models.CharField(max_length=11)
     code = models.CharField(max_length=5)
     expiration = models.DateTimeField(auto_now_add=True)

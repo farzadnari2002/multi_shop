@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Login, Register
+from .views import Login, Register, CheckOtp
 
 
 app_name = 'accounts'
@@ -7,4 +7,5 @@ app_name = 'accounts'
 urlpatterns = [
     path('login', Login.as_view(), name="login"),
     path('register', Register.as_view(), name="register"), 
+    path('checkotp', CheckOtp.as_view(), name="check_otp"),
 ]

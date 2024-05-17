@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views import View
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, CheckOtpForm
 from django.contrib.auth import authenticate, login
 import ghasedakpack
 from random import randint
+from .models import User, Otp
 
 
 SMS = ghasedakpack.Ghasedak("56c1f7b271564b46a485083e3afbbccfcf64c5931a189c01866244eeddc6b98c")
@@ -36,12 +38,36 @@ class Register(View):
         form = RegisterForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            randcode = randint(1000,9999)
+            randcode = randint(10000,99999)
             SMS.verification({'receptor': cd['phone'], 'type': 'type1', 'template': 'randcode', 'param1': randcode})
+            Otp.objects.create(phone=cd['phone'], code=randcode)
+            print(randcode)
+            return redirect(reverse('accounts:check_otp') + f'?phone={cd["phone"]}')
         else:
             form.add_error('phone', 'invalid user data')
 
         return render(request, 'accounts/register.html', context={'form':form})
+
+
+class CheckOtp(View):
+    def get(self, request):
+        form = CheckOtpForm()
+        return render(request, 'accounts/check_otp.html', context={'form':form})
+    
+    def post(self, request):
+        form = CheckOtpForm(request.POST)
+        phone = request.GET.get('phone')
+        if form.is_valid():
+            cd = form.cleaned_data
+            if Otp.objects.filter(phone=phone, code=cd['code']).exists():
+                user = User.objects.create_user(phone=phone)
+                login(request, user)
+                return redirect('/')
+        else:
+            form.add_error('phone', 'invalid user data')
+
+        return render(request, 'accounts/check_otp.html', context={'form':form})
+    
     
             
     

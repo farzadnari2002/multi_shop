@@ -25,6 +25,7 @@ class LoginForm(forms.Form):
         phone = self.cleaned_data.get('phone')
         if len(phone) != 11:
             raise ValidationError('تلفن وارد شده معتبر نیست', code='invalid_phone')
+        return phone
         
 
 class RegisterForm(forms.Form):
@@ -40,6 +41,23 @@ class RegisterForm(forms.Form):
         phone = self.cleaned_data.get('phone')
         if len(phone) != 11:
             raise ValidationError('تلفن وارد شده معتبر نیست', code='invalid_phone')
+        return phone
+        
+class CheckOtpForm(forms.Form):
+    code = forms.CharField(widget=forms.TextInput(attrs={
+         "type":"tel",
+         "class":"form-control",
+         "id":"phone",
+         "placeholder":"Code",
+         "required":"required",
+         "data-validation-required-message":"Please enter verify code", }))
+    
+    def clean_phone(self):
+        phone = self.cleaned_data.get('code')
+        if len(phone) != 11:
+            raise ValidationError('کد وارد شده معتبر نیست', code='invalid_code')
+        return phone
         
     
+
 
