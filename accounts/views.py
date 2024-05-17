@@ -33,7 +33,7 @@ class Login(View):
 class RegisterLoginOtp(View):
     def get(self, request):
         form = RegisterForm()
-        return render(request, 'accounts/register.html', context={'form':form})
+        return render(request, 'accounts/register_login_otp.html', context={'form':form})
     
     def post(self, request):
         form = RegisterForm(request.POST)
