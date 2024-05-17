@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 import ghasedakpack
 from random import randint
 from .models import User, Otp
+from django.utils.crypto import get_random_string
 
 
 SMS = ghasedakpack.Ghasedak("56c1f7b271564b46a485083e3afbbccfcf64c5931a189c01866244eeddc6b98c")
@@ -40,9 +41,10 @@ class Register(View):
             cd = form.cleaned_data
             randcode = randint(10000,99999)
             SMS.verification({'receptor': cd['phone'], 'type': 'type1', 'template': 'randcode', 'param1': randcode})
-            Otp.objects.create(phone=cd['phone'], code=randcode)
+            token = get_random_string(length=100)
+            Otp.objects.create(token=token, phone=cd['phone'], code=randcode)
             print(randcode)
-            return redirect(reverse('accounts:check_otp') + f'?phone={cd["phone"]}')
+            return redirect(reverse('accounts:check_otp') + f'?token={token}')
         else:
             form.add_error('phone', 'invalid user data')
 
@@ -56,11 +58,12 @@ class CheckOtp(View):
     
     def post(self, request):
         form = CheckOtpForm(request.POST)
-        phone = request.GET.get('phone')
+        token = request.GET.get('token')
         if form.is_valid():
             cd = form.cleaned_data
-            if Otp.objects.filter(phone=phone, code=cd['code']).exists():
-                user = User.objects.create_user(phone=phone)
+            if Otp.objects.filter(token=token, code=cd['code']).exists():
+                otp = Otp.objects.get(token=token)
+                user = User.objects.create_user(phone=otp.phone)
                 login(request, user)
                 return redirect('/')
         else:
