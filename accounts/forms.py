@@ -4,13 +4,14 @@ from django.core.exceptions import ValidationError
 
 
 class LoginForm(forms.Form):
-    phone = forms.CharField(widget=forms.TextInput(attrs={
-         "type":"tel",
+    username = forms.CharField(widget=forms.TextInput(attrs={
+         "type":"",
          "class":"form-control",
-         "id":"phone",
-         "placeholder":"Your Phone",
+         "id":"username",
+         "placeholder":"phone or email",
          "required":"required",
-         "data-validation-required-message":"Please enter your phone number", }))
+         "data-validation-required-message":"Please enter your phone or email",
+    }))
     
     password = forms.CharField(widget=forms.PasswordInput(attrs={
          "type":"password",
@@ -21,11 +22,11 @@ class LoginForm(forms.Form):
          "data-validation-required-message":"Please enter your password",
     }))
 
-    def clean_phone(self):
-        phone = self.cleaned_data.get('phone')
-        if len(phone) != 11:
-            raise ValidationError('تلفن وارد شده معتبر نیست', code='invalid_phone')
-        return phone
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if len(username) > 100:
+            raise ValidationError('تلفن یا ایمیل وارد شده معتبر نیست', code='invalid_username')
+        return username 
         
 
 class RegisterForm(forms.Form):
