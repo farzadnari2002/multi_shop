@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
 from .forms import LoginForm, RegisterForm, CheckOtpForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 import ghasedakpack
 from random import randint
 from .models import User, Otp
@@ -64,13 +64,19 @@ class CheckOtp(View):
             if Otp.objects.filter(token=token, code=cd['code']).exists():
                 otp = Otp.objects.get(token=token)
                 user, is_created  = User.objects.get_or_create(phone=otp.phone)
-                login(request, user)
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 otp.delete()
                 return redirect('/')
         else:
             form.add_error('phone', 'invalid user data')
 
         return render(request, 'accounts/check_otp.html', context={'form':form})
+    
+
+class Logout(View):
+    def get(self, request):
+        logout(request)
+        return redirect('/')
     
     
             
