@@ -22,8 +22,8 @@ class Product(models.Model):
     price = models.IntegerField()
     discount = models.SmallIntegerField()
     image = models.ImageField(upload_to='products')
-    size = models.ManyToManyField(Size, related_name='products', null=True, blank=True)
-    color = models.ManyToManyField(Color, related_name='products', null=True, blank=True)
+    size = models.ManyToManyField(Size, related_name='products', blank=True)
+    color = models.ManyToManyField(Color, related_name='products', blank=True)
 
     def __str__(self):
         return self.title
