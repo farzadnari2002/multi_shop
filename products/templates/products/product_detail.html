@@ -43,8 +43,8 @@
                     <form>
                         {% for size in product.size.all %}
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size" name="size">
-                            <label class="custom-control-label" for="size">{{ size.title }}</label>
+                            <input type="radio" class="custom-control-input" id="{{size.title}}" name="size">
+                            <label class="custom-control-label" for="{{size.title}}">{{ size.title }}</label>
                         </div>
                         {% endfor %}
                     </form>
@@ -56,8 +56,8 @@
                     <form>
                         {% for color in product.color.all %}
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color" name="color">
-                            <label class="custom-control-label" for="color">{{ color.title }}</label>
+                            <input type="radio" class="custom-control-input" id="{{ color.title }}" name="color">
+                            <label class="custom-control-label" for="{{ color.title }}">{{ color.title }}</label>
                         </div>
                         {% endfor %}
                     </form>
@@ -101,34 +101,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <ul class="list-group list-group-flush">
+                                    {% for info in product.informations.all %}
                                     <li class="list-group-item px-0">
-                                        Sit erat duo lorem duo ea consetetur, et eirmod takimata.
+                                        {{ info.text }}
                                     </li>
-                                    <li class="list-group-item px-0">
-                                        Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
-                                    </li>
-                                    <li class="list-group-item px-0">
-                                        Duo amet accusam eirmod nonumy stet et et stet eirmod.
-                                    </li>
-                                    <li class="list-group-item px-0">
-                                        Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
-                                    </li>
-                                  </ul> 
-                            </div>
-                            <div class="col-md-6">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item px-0">
-                                        Sit erat duo lorem duo ea consetetur, et eirmod takimata.
-                                    </li>
-                                    <li class="list-group-item px-0">
-                                        Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
-                                    </li>
-                                    <li class="list-group-item px-0">
-                                        Duo amet accusam eirmod nonumy stet et et stet eirmod.
-                                    </li>
-                                    <li class="list-group-item px-0">
-                                        Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
-                                    </li>
+                                    {% endfor %}
                                   </ul> 
                             </div>
                         </div>
