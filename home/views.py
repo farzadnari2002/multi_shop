@@ -10,8 +10,8 @@ class Home(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        self.request.session['name'] = 'farzad'
-        print(self.request.session['name'])
+        del self.request.session['name']
+        print(self.request.session.get('name', 'farzad'))
         return context
         
     
