@@ -10,4 +10,4 @@ class CartDetail(View):
 class CartAdd(View):
     def post(self, request):
         print('product added')
-        return redirect('cart"cart_detail')
+        return redirect('cart":cart_detail')
