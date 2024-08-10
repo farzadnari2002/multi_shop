@@ -8,6 +8,6 @@ class CartDetail(View):
     
 
 class CartAdd(View):
-    def post(self, request):
+    def post(self, request, pk):
         print('product added')
         return redirect('cart:cart_detail')

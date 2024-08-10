@@ -40,7 +40,7 @@
                     {% if product.size.all %}
                     <strong class="text-dark mr-3">Sizes:</strong>
                     {% endif %}
-                    <form action="{% url 'cart:cart_add' %}" method="post">
+                    <form action="{% url 'cart:cart_add' product.id %}" method="post">
                         {% csrf_token %}
                         {% for size in product.size.all %}
                         <div class="custom-control custom-radio custom-control-inline">
