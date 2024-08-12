@@ -9,5 +9,6 @@ class Cart:
             
         self.cart = cart
 
-    
-        
+    def unique_id_generator(self, id, color, size, quantity):
+        result = f'{id}-{color}-{size}-{quantity}'
+        return result       
