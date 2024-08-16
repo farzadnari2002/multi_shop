@@ -1,3 +1,6 @@
+from products.models import Product
+
+
 CART_SESSION_ID = 'cart'
 
 class Cart:
@@ -8,6 +11,15 @@ class Cart:
             cart = self.session[CART_SESSION_ID] = {}
             
         self.cart = cart
+
+    def __iter__(self):
+        cart = self.cart.copy()
+
+        for item in cart.values:
+            item['product'] = Product.objects.get(id=int(item['id']))
+            item['total'] = item['quantity'] * item['price']
+            yield item
+
 
     def unique_id_generator(self, id, color, size):
         result = f'{id}-{color}-{size}'
