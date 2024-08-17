@@ -13,20 +13,26 @@
                         <th>Image</th>
                         <th>Title</th>
                         <th>Price</th>
+                        <th>Color</th>
+                        <th>Size</th>
                         <th>Quantity</th>
                         <th>Total</th>
                         <th>Remove</th>
                     </tr>
                 </thead>
                 <tbody class="align-middle">
+                    {% for item in cart %}
                     <tr>
-                        <td class="align-middle"><img src="{% static "img/product-1.jpg" %}" alt="" style="width: 50px;"></td>
-                        <td class="align-middle">Product Name</td>
-                        <td class="align-middle">$150</td>
-                        <td class="align-middle">1</td>
-                        <td class="align-middle">$150</td>
+                        <td class="align-middle"><img src="{{ item.product.image.url }}" alt="" style="width: 50px;"></td>
+                        <td class="align-middle">{{ item.product.title }}</td>
+                        <td class="align-middle">{{ item.product.price }}</td>
+                        <td class="align-middle">{{ item.color }}</td>
+                        <td class="align-middle">{{ item.product.size }}</td>
+                        <td class="align-middle">{{ item.quantity }}</td>
+                        <td class="align-middle">{{ item.total }}</td>
                         <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
