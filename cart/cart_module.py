@@ -17,7 +17,7 @@ class Cart:
 
         for item in cart.values():
             item['product'] = Product.objects.get(id=int(item['id']))
-            item['total'] = item['quantity'] * item['price']
+            item['total'] = int(item['quantity']) * int(item['price'])
             yield item
 
     def unique_id_generator(self, id, color, size):
