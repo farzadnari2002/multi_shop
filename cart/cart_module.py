@@ -16,8 +16,10 @@ class Cart:
         cart = self.cart.copy()
 
         for item in cart.values():
-            item['product'] = Product.objects.get(id=int(item['id']))
+            product = Product.objects.get(id=int(item['id']))
+            item['product'] = product
             item['total'] = int(item['quantity']) * int(item['price'])
+            item['unique_id'] = self.unique_id_generator(product.id, item['color'], item['size'])
             yield item
 
     def unique_id_generator(self, id, color, size):
@@ -31,6 +33,11 @@ class Cart:
             
         self.cart[unique]['quantity'] += int(quantity)
         self.save()
+
+    def delete(self,id):
+        if id in self.cart:
+            del self.cart[id]
+            self.save()
 
     def save(self):
           self.session.modified = True
