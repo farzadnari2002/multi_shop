@@ -13,7 +13,7 @@ class CartDetail(View):
 class CartAdd(View):
     def post(self, request, pk):
         product = get_object_or_404(Product, id=pk)
-        size, color, quantity = request.POST.get('size'), request.POST.get('color'), request.POST.get('quantity')
+        size, color, quantity = request.POST.get('size', 'empty'), request.POST.get('color', 'empty'), request.POST.get('quantity', 'empty')
         cart = Cart(request)
         cart.add(product, color, size, quantity)
         return redirect('cart:cart_detail')
