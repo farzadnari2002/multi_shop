@@ -5,9 +5,6 @@ from products.models import Product
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
-    address = models.CharField(max_length=300)
-    email = models.EmailField(null=True, blank=True)
-    phone = models.CharField(max_length=12)
     created_at = models.DateTimeField(auto_now_add=True)
     is_paid = models.BooleanField(default=True)
 
