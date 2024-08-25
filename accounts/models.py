@@ -90,4 +90,7 @@ class Address(models.Model):
     address = models.CharField(max_length=300)
     email = models.EmailField(null=True, blank=True)
     phone = models.CharField(max_length=12)
+
+    def __str__(self):
+        return self.user.phone
     
