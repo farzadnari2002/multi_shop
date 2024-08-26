@@ -1,6 +1,7 @@
 from django import forms
 from django.core.validators import MaxLengthValidator
 from django.core.exceptions import ValidationError
+from .models import Address
 
 
 class LoginForm(forms.Form):
@@ -28,7 +29,9 @@ class LoginForm(forms.Form):
             raise ValidationError('تلفن یا ایمیل وارد شده معتبر نیست', code='invalid_username')
         return username 
         
-
+    address = models.CharField(max_length=300)
+    email = models.EmailField(null=True, blank=True)
+    phone = models.CharField(max_length=12)
 class RegisterForm(forms.Form):
     phone = forms.CharField(widget=forms.TextInput(attrs={
          "type":"tel",
@@ -58,6 +61,13 @@ class CheckOtpForm(forms.Form):
         if len(phone) != 11:
             raise ValidationError('کد وارد شده معتبر نیست', code='invalid_code')
         return phone
+    
+
+class AddressCreationForm(forms.ModelForm):
+    class meta:
+        model = Address
+        fields = '__all__'
+
         
     
 
