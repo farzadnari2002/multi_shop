@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 
 
 {% block content %}
@@ -11,7 +12,24 @@
             <div class="bg-light p-30 mb-5">
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        {{ form }}
+                        <label>Phone</label>
+                        {{ form.phone|attr:"class:form-control"}}
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Email</label>
+                        {{ form.email|attr:"class:form-control"}}
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Address</label>
+                        {{ form.address|attr:"class:form-control"}}
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Postal Code</label>
+                        {{ form.postal_code|attr:"class:form-control"}}
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Fullname</label>
+                        {{ form.fullname|attr:"class:form-control"}}
                     </div>
                 </div>
             </div>
