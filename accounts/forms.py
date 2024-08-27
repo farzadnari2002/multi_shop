@@ -28,10 +28,8 @@ class LoginForm(forms.Form):
         if len(username) > 100:
             raise ValidationError('تلفن یا ایمیل وارد شده معتبر نیست', code='invalid_username')
         return username 
-        
-    address = models.CharField(max_length=300)
-    email = models.EmailField(null=True, blank=True)
-    phone = models.CharField(max_length=12)
+    
+
 class RegisterForm(forms.Form):
     phone = forms.CharField(widget=forms.TextInput(attrs={
          "type":"tel",
@@ -64,7 +62,7 @@ class CheckOtpForm(forms.Form):
     
 
 class AddressCreationForm(forms.ModelForm):
-    class meta:
+    class Meta:
         model = Address
         fields = '__all__'
 

@@ -7,6 +7,7 @@ import ghasedakpack
 from random import randint
 from .models import User, Otp
 from uuid import uuid4
+from .forms import AddressCreationForm
 
 
 SMS = ghasedakpack.Ghasedak("56c1f7b271564b46a485083e3afbbccfcf64c5931a189c01866244eeddc6b98c")
@@ -77,6 +78,21 @@ class Logout(View):
     def get(self, request):
         logout(request)
         return redirect('/')
+    
+
+class AddAddress(View):
+    def post(self, request):
+        form = AddressCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return render(request, 'accounts/add_address.html', {'form':form})
+    
+    def get(self, request):
+        form = AddressCreationForm()
+        return render(request, 'accounts/add_address.html', {'form':form})
+        
+    
+
     
     
             
