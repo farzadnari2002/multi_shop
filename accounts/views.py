@@ -84,7 +84,10 @@ class AddAddress(View):
     def post(self, request):
         form = AddressCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            address = form.save(commit=False)
+            address.user = request.user
+            address.save()
+            
         return render(request, 'accounts/add_address.html', {'form':form})
     
     def get(self, request):

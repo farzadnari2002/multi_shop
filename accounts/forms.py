@@ -62,9 +62,11 @@ class CheckOtpForm(forms.Form):
     
 
 class AddressCreationForm(forms.ModelForm):
+    user = forms.IntegerField(required=False)
     class Meta:
         model = Address
-        exclude = ('user',)
+        fields = '__all__'
+        
 
         
     
