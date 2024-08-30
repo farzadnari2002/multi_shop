@@ -39,6 +39,13 @@ class Cart:
             del self.cart[id]
             self.save()
 
+    def totalprice(self):
+        cart = self.cart
+        total = 0
+        for item in cart.values():
+            total += int(item['quantity']) * int(item['price'])
+        return total
+
     def save(self):
           self.session.modified = True
 
