@@ -30,7 +30,7 @@ class CartDelete(View):
 class OrderCreate(View):
     def get(self, request):
         cart = Cart(request)
-        order = Order.objects.create(user=request.user)
+        order = Order.objects.create(user=request.user, total_price=cart.totalprice())
         for item in cart:
             OrderItem.objects.create(
                 order=order,
@@ -40,6 +40,10 @@ class OrderCreate(View):
                 quantity=item['quantity'],
                 price=item['price'],
             )
-        return redirect('cart:cart_detail')
+        return redirect('cart:order_detail', order.id)
     
 
+class OrderDetail(View):
+    def get(self, request, id):
+        order = get_object_or_404(Order, id=id)
+        return render(request, 'cart/order_detail.html', {'order':order})
