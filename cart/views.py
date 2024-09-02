@@ -39,7 +39,9 @@ class OrderCreate(View):
                 size=item['size'],
                 quantity=item['quantity'],
                 price=item['price'],
+                total_price=int(item['quantity']) * int(item['price']),
             )
+        cart.remove()
         return redirect('cart:order_detail', order.id)
     
 

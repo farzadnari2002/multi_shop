@@ -20,6 +20,7 @@ class OrderItem(models.Model):
     size = models.CharField(max_length=15)
     quantity = models.SmallIntegerField()
     price = models.PositiveIntegerField()
+    total_price = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.order.user.phone

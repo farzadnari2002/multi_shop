@@ -29,7 +29,7 @@
                         <td class="align-middle">{{ item.color }}</td>
                         <td class="align-middle">{{ item.size }}</td>
                         <td class="align-middle">{{ item.quantity }}</td>
-                        <td class="align-middle">{{ item.total }}</td>
+                        <td class="align-middle">${{ item.total }}</td>
                         <td class="align-middle"><a href="{% url "cart:cart_delete" item.unique_id %}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
                     </tr>
                     {% endfor %}

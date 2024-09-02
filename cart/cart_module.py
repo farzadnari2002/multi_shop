@@ -39,6 +39,9 @@ class Cart:
             del self.cart[id]
             self.save()
 
+    def remove(self):
+        del self.session[CART_SESSION_ID]
+
     def totalprice(self):
         cart = self.cart
         total = 0
