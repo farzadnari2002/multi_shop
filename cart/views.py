@@ -27,10 +27,19 @@ class CartDelete(View):
         return redirect('cart:cart_detail')
     
 
-# class OrderCreate(View):
-#     def get(self, request):
-#         cart = Cart(request)
-#         order = Order.objects.create(user=request.user)
-#         for item in cart.values():
-#             OrderItem.objects(order=order, )
-#         return redirect('cart:cart_detail')
+class OrderCreate(View):
+    def get(self, request):
+        cart = Cart(request)
+        order = Order.objects.create(user=request.user)
+        for item in cart:
+            OrderItem.objects.create(
+                order=order,
+                product=item['product'],
+                color=item['color'],
+                size=item['size'],
+                quantity=item['quantity'],
+                price=item['price'],
+            )
+        return redirect('cart:cart_detail')
+    
+
