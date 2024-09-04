@@ -49,3 +49,19 @@ class OrderDetail(View):
     def get(self, request, id):
         order = get_object_or_404(Order, id=id)
         return render(request, 'cart/order_detail.html', {'order':order})
+    
+
+class ApplyDiscount(View):
+    def post(self, request, id):
+        discount = request.POST.get('discount_code')
+        order = get_object_or_404(Order, id=id)
+        discount_code = get_object_or_404(DiscountCode, name=discount)
+        print(discount, order.total_price)
+        if discount_code.quantity == 0:
+            return redirect('cart:order_detail', order.id)
+        order.total_price -= order.total_price * discount_code.discount/100
+        order.save()
+        discount_code.quantity -= 1
+        discount_code.save()
+        return redirect('cart:order_detail', order.id)
+        

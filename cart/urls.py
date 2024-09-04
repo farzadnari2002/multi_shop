@@ -9,4 +9,5 @@ urlpatterns = [
     path('delete/<str:id>',CartDelete.as_view(), name='cart_delete'),
     path('order/create', OrderCreate.as_view(), name='order_create'),
     path('order/detail/<int:id>', OrderDetail.as_view(), name='order_detail'),
+    path('applydiscount/<int:id>', ApplyDiscount.as_view(), name='apply_discount'),
 ]
