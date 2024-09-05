@@ -3,6 +3,7 @@ from django.views import View
 from products.models import Product
 from .cart_module import Cart
 from .models import *
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class CartDetail(View):
@@ -27,7 +28,7 @@ class CartDelete(View):
         return redirect('cart:cart_detail')
     
 
-class OrderCreate(View):
+class OrderCreate(LoginRequiredMixin, View):
     def get(self, request):
         cart = Cart(request)
         order = Order.objects.create(user=request.user, total_price=cart.totalprice())
@@ -45,13 +46,13 @@ class OrderCreate(View):
         return redirect('cart:order_detail', order.id)
     
 
-class OrderDetail(View):
+class OrderDetail(LoginRequiredMixin, View):
     def get(self, request, id):
         order = get_object_or_404(Order, id=id)
         return render(request, 'cart/order_detail.html', {'order':order})
     
 
-class ApplyDiscount(View):
+class ApplyDiscount(LoginRequiredMixin, View):
     def post(self, request, id):
         discount = request.POST.get('discount_code')
         order = get_object_or_404(Order, id=id)
@@ -64,4 +65,6 @@ class ApplyDiscount(View):
         discount_code.quantity -= 1
         discount_code.save()
         return redirect('cart:order_detail', order.id)
-        
+    
+
+

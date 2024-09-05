@@ -8,6 +8,7 @@ from random import randint
 from .models import User, Otp
 from uuid import uuid4
 from .forms import AddressCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 SMS = ghasedakpack.Ghasedak("56c1f7b271564b46a485083e3afbbccfcf64c5931a189c01866244eeddc6b98c")
@@ -80,7 +81,7 @@ class Logout(View):
         return redirect('/')
     
 
-class AddAddress(View):
+class AddAddress(LoginRequiredMixin, View):
     def post(self, request):
         form = AddressCreationForm(request.POST)
         if form.is_valid():
