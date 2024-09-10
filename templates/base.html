@@ -1,4 +1,6 @@
 {% load static %}
+{% load render_partial %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +16,7 @@
 
 
     <!-- Navbar Start -->
-        {% include "includes/nevbar.html" %}
+        {% render_partial 'products:nevbar' %}
     <!-- Navbar End -->
 
 {% block content %}
