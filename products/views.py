@@ -15,5 +15,11 @@ class NevbarPartialView(TemplateView):
         context = super(NevbarPartialView, self).get_context_data()
         context['categories'] = Category.objects.all()
         return context
+    
+
+class ProductsList(TemplateView):
+    template_name = 'products/products_list.html'
+    
+
 
 
