@@ -1,6 +1,6 @@
 from typing import Any
 from django.shortcuts import render
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import DetailView, TemplateView, ListView
 from .models import *
 
 
@@ -17,8 +17,9 @@ class NevbarPartialView(TemplateView):
         return context
     
 
-class ProductsList(TemplateView):
+class ProductsList(ListView):
     template_name = 'products/products_list.html'
+    queryset = Product.objects.all()
     
 
 
