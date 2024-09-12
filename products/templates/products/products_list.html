@@ -20,7 +20,6 @@
                         <label for="price-all">Max</label>
                         <input type="number" name="max_price" id="price-all">
                     </div>
-                </form>
             </div>
             <!-- Price End -->
             
@@ -53,14 +52,12 @@
                         <label class="custom-control-label" for="color-5">Green</label>
                         <span class="badge border font-weight-normal">168</span>
                     </div>
-                </form>
             </div>
             <!-- Color End -->
 
             <!-- Size Start -->
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by size</span></h5>
             <div class="bg-light p-4 mb-30">
-                <form>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" name="size" value="xs" id="size-1">
                         <label class="custom-control-label" for="size-1">XS</label>
@@ -81,6 +78,7 @@
                         <label class="custom-control-label" for="size-4">L</label>
                         <span class="badge border font-weight-normal">145</span>
                     </div>
+                    <input type="submit" value="submit">
                 </form>
             </div>
             <!-- Size End -->
@@ -134,7 +132,7 @@
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate" href="">{{ product.title }}</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>$123.00</h5><h6 class="text-muted ml-2"><del>${{ product.price }}</del></h6>
+                                <h5>${{ product.price }}</h5>
                             </div>
                             
                         </div>
